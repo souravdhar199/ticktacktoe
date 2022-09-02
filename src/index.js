@@ -1,25 +1,35 @@
+/* eslint-disable eqeqeq */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-// This class renders buttons
-class Squares extends React.Component {
-  // In order to remember which button got --> State
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     value: null
-  //   }
-  // }
-  render() {
-    return (
-      <button className="square"
-        onClick={() => { this.props.onClick() }} >
-        {this.props.value}
-      </button>
-    );
-  }
+// // This class renders buttons
+// class Squares extends React.Component {
+//   // In order to remember which button got --> State
+//   // constructor(props) {
+//   //   super(props);
+//   //   this.state = {
+//   //     value: null
+//   //   }
+//   // }
+//   render() {
+//     return (
+//       <button className="square"
+//         onClick={() => { this.props.onClick() }} >
+//         {this.props.value}
+//       </button>
+//     );
+//   }
+// }
+
+// Writing fucntion components
+function Squares(props) {
+  return (
+    <button className='square' onClick={props.onClick}>
+      {props.value}
+    </button>
+  )
 }
 
 class Board extends React.Component {
@@ -28,9 +38,10 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
+      isTrue: true,
+
     }
   }
-
 
   // Each time renderSquare get called it renders a Squares. Which is Button
   renderSquare(i) {
@@ -41,16 +52,20 @@ class Board extends React.Component {
     />
   }
 
+
+
   handleClick(i) {
     // Get a copy of the State Array
     const tempArray = this.state.squares.slice();
-    tempArray[i] = 'X';
-    this.setState({ squares: tempArray })
+    if (this.state.isTrue) { tempArray[i] = 'X' }
+    else { tempArray[i] = 'O' }
+
+    this.setState({ squares: tempArray, isTrue: !this.state.isTrue });
 
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player: ' + (this.state.isTrue ? "X" : "O");
     return (
       <div>
         <div className="status">{status}</div>
