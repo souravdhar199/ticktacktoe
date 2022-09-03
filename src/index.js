@@ -57,6 +57,8 @@ class Board extends React.Component {
 
 
   handleClick(i) {
+    // If we see that we already found the winner then take no more turns
+    if (calculateWinner(this.state.squares)) { return; }
     // Get a copy of the State Array
     const tempArray = this.state.squares.slice();
     if (this.state.isTrue) { tempArray[i] = 'X' }
@@ -114,7 +116,6 @@ class Game extends React.Component {
   }
 }
 
-//Calculate winner
 // Calculate Winner
 function calculateWinner(squares) {
   const lines = [
@@ -135,7 +136,6 @@ function calculateWinner(squares) {
   }
   return null;
 }
-
 
 
 
